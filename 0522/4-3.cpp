@@ -62,6 +62,7 @@ public:
         }
         return u.get();
     }
+
     const T& operator[](std::size_t i) const& {
         return find_pred(i).next[0] -> val;
     }
