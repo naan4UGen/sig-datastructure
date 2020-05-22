@@ -25,13 +25,13 @@ class skiplist{
         std::size_t height;
         std::vector<std::size_t> length;
         std::vector<std::shared_ptr<skiplist_node>> next;
-        skiplist_node(const T& _v, std::size_t _h, std::size_t sz) : val(_v), height(_h), length(height, sz + 1), next(height, nullptr) {}
+        skiplist_node(const T& _v, std::size_t _h, std::size_t sz) : val(_v), height(_h), length(height, sz), next(height, nullptr) {}
         skiplist_node(const skiplist_node&) = default;
         skiplist_node(skiplist_node&&) noexcept = default;
         void update_height(std::size_t h, std::size_t sz){
             if(height < h){
                 this -> height = h;
-                length.resize(h, sz + 1);
+                length.resize(h, sz);
                 next.resize(h, nullptr);
             }
         }
@@ -46,6 +46,9 @@ class skiplist{
 
 public:
     skiplist() : _size(0), top(0, 0, 0), gen_height() {}
+    skiplist(std::size_t sz, const T& v) : _size(0), top(0, 0, 0), gen_height() {
+        for(std::size_t i{0}; i < sz; ++i)insert(0, v);
+    }
 
     skiplist_node& find_pred(std::size_t i){
         auto u = std::ref(top);
@@ -142,12 +145,12 @@ int main(){
     height_picker hoge{};
     skiplist<unsigned long> skl;
     auto mt{mt19937_64{random_device{}()}};
-    for(unsigned long i{0}; i < 30; ++i){
+    for(unsigned long i{0}; i < 24; ++i){
         skl.insert(uniform_int_distribution<unsigned long>{0, skl.size()}(mt), i);
         skl.debug_print();
     }
-    for(unsigned long i{0}; i < 30; ++i){
-        skl.erase(uniform_int_distribution<unsigned long>{0, skl.size()}(mt));
+    for(unsigned long i{0}; i < 24; ++i){
+        skl.erase(uniform_int_distribution<unsigned long>{0, skl.size() - 1}(mt));
         skl.debug_print();
     }
 
