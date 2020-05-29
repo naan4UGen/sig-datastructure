@@ -73,7 +73,7 @@ public:
     void debug_print(){
         unsigned long t{1}, c{0};
         while(c < _size){
-            for(unsigned long i{c}; i < std::min(_size, c + t); ++i)std::cout << v[i] << " ";
+            for(unsigned long i{c}; i < std::min(_size, c + t); ++i)printf("%3lu%s", v[i], std::string(64 / t - 3, ' ').data());
             std::cout << std::endl;
             c += t;
             t *= 2;
