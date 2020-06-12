@@ -169,11 +169,10 @@ public:
 int main(){
     using namespace std;
     splay_tree_set<unsigned long> s;
-    unsigned long N;
-    cin >> N;
-    for(unsigned long i{0}, A; i < N; ++i){
-        cin >> A;
-        s.insert(A);
-    }
-    puts(s.size() == N ? "YES": "NO");
+    for(unsigned long i{200}; i >= 100; i -= 10)s.insert(i);
+    s.debug_print(cout);
+    s.splay(200);
+    s.debug_print(cout);
+    s.erase(100);
+    s.debug_print(cout);
 }
