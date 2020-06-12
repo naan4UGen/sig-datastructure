@@ -151,6 +151,11 @@ public:
             top.swap(tmp_right.top);
         }
     }
+    bool contains(const key_type& x){
+        if(!top)return false;
+        splay(x);
+        return !(cmp(x, top -> val) || cmp(top -> val, x));
+    }
     void debug_print(std::ostream& os){
         os << std::string(50, '-') << std::endl;
         if(top)top -> debug_print(os, 0);
@@ -169,10 +174,22 @@ public:
 int main(){
     using namespace std;
     splay_tree_set<unsigned long> s;
-    for(unsigned long i{200}; i >= 100; i -= 10)s.insert(i);
-    s.debug_print(cout);
-    s.splay(200);
-    s.debug_print(cout);
-    s.erase(100);
-    s.debug_print(cout);
+    while(true){
+        string S;
+        cin >> S;
+        if(S == "erase") {
+            unsigned long x;
+            cin >> x;
+            s.erase(x);
+        }else if(S == "find"){
+            unsigned long x;
+            cin >> x;
+            puts(s.contains(x) ? "found" : "not found");
+        }else if(S == "insert"){
+            unsigned long x;
+            cin >> x;
+            s.insert(x);
+        }else if(S == "end")break;
+        s.debug_print(cout);
+    }
 }
