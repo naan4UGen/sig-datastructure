@@ -68,28 +68,39 @@ int main(){
     std::uniform_int_distribution<char> ucd('a', 'z');
     std::mt19937_64 mt{std::random_device{}()};
 
-    std::vector<long> tap(25);
-    std::iota(std::begin(tap), std::end(tap), -12L);
-    std::shuffle(std::begin(tap), std::end(tap), mt);
+    std::vector<unsigned long> ushita(50);
+    std::iota(std::begin(ushita), std::end(ushita), 0UL);
+    std::shuffle(std::begin(ushita), std::end(ushita), mt);
 
-    std::copy(std::begin(tap), std::end(tap), std::ostream_iterator<long>(std::cout, " "));
+    std::copy(std::begin(ushita), std::end(ushita), std::ostream_iterator<long>(std::cout, " "));
     std::cout << std::endl;
 
-    radix_sort(std::begin(tap), std::end(tap));
+    radix_sort(std::begin(ushita), std::end(ushita));
 
-    std::copy(std::begin(tap), std::end(tap), std::ostream_iterator<long>(std::cout, " "));
+    std::copy(std::begin(ushita), std::end(ushita), std::ostream_iterator<long>(std::cout, " "));
+    std::cout << std::endl << std::endl;
+
+    std::vector<long> punichi(40);
+    std::iota(std::begin(punichi), std::end(punichi), -20L);
+    std::shuffle(std::begin(punichi), std::end(punichi), mt);
+
+    std::copy(std::begin(punichi), std::end(punichi), std::ostream_iterator<long>(std::cout, " "));
     std::cout << std::endl;
 
+    radix_sort(std::begin(punichi), std::end(punichi));
 
-    std::vector<std::pair<unsigned long, std::string>> nichi(25);
-    std::generate(std::begin(nichi), std::end(nichi), [&uld, &uid, &ucd, &mt]() -> std::pair<unsigned long, std::string> {return {uld(mt), std::string(uid(mt), ucd(mt))};});
+    std::copy(std::begin(punichi), std::end(punichi), std::ostream_iterator<long>(std::cout, " "));
+    std::cout << std::endl << std::endl;
 
-    for(const auto& [id, str] : nichi)std::cout << "[" << id << ", " << str << "] ";
+    std::vector<std::pair<unsigned long, std::string>> akun(10);
+    std::generate(std::begin(akun), std::end(akun), [&uld, &uid, &ucd, &mt]() -> std::pair<unsigned long, std::string> {return {uld(mt), std::string(uid(mt), ucd(mt))};});
+
+    for(const auto& [id, str] : akun)std::cout << "[" << id << ", " << str << "] ";
     std::cout << std::endl;
 
-    radix_sort(std::begin(nichi), std::end(nichi));
+    radix_sort(std::begin(akun), std::end(akun));
 
-    for(const auto& [id, str] : nichi)std::cout << "[" << id << ", " << str << "] ";
+    for(const auto& [id, str] : akun)std::cout << "[" << id << ", " << str << "] ";
     std::cout << std::endl;
 
 }
